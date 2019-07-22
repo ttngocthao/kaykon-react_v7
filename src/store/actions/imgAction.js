@@ -21,7 +21,9 @@ export const uploadImg = (album, image, firebase) => {
         //console.log("Upload is " + progress + "% done");
         progress === 100 && alert("Done!");
       },
-      function(err) {},
+      function(err) {
+        console.log("err", err);
+      },
       function() {
         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
           const albumRef = firestore.collection("gallery").doc(album);
@@ -38,15 +40,16 @@ export const uploadImg = (album, image, firebase) => {
                 });
               } else {
                 // doc.data() will be undefined in this case
-                //console.log("No such document!");
+                console.log("No such document!");
                 albumRef.set({ albumName: album, imgUrls: [downloadURL] });
               }
+            })
+            .then(() => {
+              dispatch({ type: "IMG_UPLOAD", image: image, progress });
             })
             .catch(function(error) {
               console.log("Error getting document:", error);
             });
-
-          dispatch({ type: "IMG_UPLOAD", image: image, progress });
         });
       }
     );

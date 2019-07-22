@@ -17,8 +17,9 @@ class NewAlbum extends Component {
     albumName: ""
   };
   handleChange = e => {
+    const images = Array.from(e.target.files);
     this.setState({
-      images: e.target.files
+      images
     });
   };
   handleChangeName = e => {
@@ -34,10 +35,13 @@ class NewAlbum extends Component {
     e.preventDefault();
     const { images, albumName } = this.state;
     console.log("image+albumName", images, albumName);
-    for (let image of images) {
+    // for (let image of images) {
+    //   this.props.uploadImg(albumName, image, this.props.firebase);
+    // }
+
+    this.state.images.forEach(image => {
       this.props.uploadImg(albumName, image, this.props.firebase);
-    }
-    //this.props.uploadImg(album, image, this.props.firebase);
+    });
   };
   render() {
     const { auth } = this.props;

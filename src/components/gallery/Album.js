@@ -20,7 +20,11 @@ const Album = props => {
           albumData.imgUrls.map((url, indx) => {
             return (
               <li key={indx}>
-                <img alt={albumData.albumName + "_img" + indx} src={url} />
+                <img
+                  style={{ maxWidth: "200px" }}
+                  alt={albumData.albumName + "_img" + indx}
+                  src={url}
+                />
               </li>
             );
           })}

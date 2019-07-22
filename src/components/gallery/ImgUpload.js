@@ -67,7 +67,7 @@ class ImgUpload extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("state from upload img", state);
+  //console.log("state from upload img", state);
   return { auth: state.firebase.auth, state };
 };
 
