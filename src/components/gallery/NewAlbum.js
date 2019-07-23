@@ -42,6 +42,8 @@ class NewAlbum extends Component {
     this.state.images.forEach(image => {
       this.props.uploadImg(albumName, image, this.props.firebase);
     });
+
+    //this.props.uploadImg(albumName,this.state.images,this.props.firebase)
   };
   render() {
     const { auth } = this.props;
@@ -76,7 +78,7 @@ class NewAlbum extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("state from upload img", state);
+  //console.log("state from upload img", state);
   return { auth: state.firebase.auth, state };
 };
 

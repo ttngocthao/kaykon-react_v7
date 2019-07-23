@@ -19,9 +19,9 @@ const eventReducer = (state = initiState, action) => {
     case "IMG_UPLOAD_ERROR":
       console.log("fail to upload the image", action.err);
       return state;
-    case "GET_IMAGES":
-      console.log("download images successfully", action.url);
-      return { ...state, gallery: [action.url, ...state.gallery] };
+    case "IMG_DELETED":
+      console.log("image was deleted successfully");
+      return { ...state };
     default:
       return state;
   }

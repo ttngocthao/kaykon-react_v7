@@ -11,15 +11,22 @@ import AlbumThumbnai from "./AlbumThumbnail";
 
 const Gallery = props => {
   // Object.keys()-->return an array of properties from the object
-  props.gallery && console.log("object key", Object.keys(props.gallery));
+  //props.gallery && console.log("object key", Object.keys(props.gallery));
 
-  props.gallery &&
-    Object.keys(props.gallery).map(album => console.log(props.gallery[album]));
+  //props.gallery &&
+  // Object.keys(props.gallery).map(album => console.log(props.gallery[album]));
   return (
     <div>
       <h1>Gallery</h1>
       {props.gallery ? (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            flexWrap: "wrap"
+          }}
+        >
           {props.gallery &&
             Object.keys(props.gallery).map((alb, indx) => {
               const gallery = props.gallery;
@@ -34,7 +41,7 @@ const Gallery = props => {
             })}
         </div>
       ) : (
-        <div>No Album</div>
+        <div>Loading...</div>
       )}
     </div>
   );
@@ -46,7 +53,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 const mapStateToProps = state => {
-  console.log("gallery", state);
+  //console.log("gallery", state);
   return {
     gallery: state.firestore.data.gallery
   };

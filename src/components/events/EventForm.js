@@ -26,7 +26,7 @@ class EventForm extends Component {
     this.props.history.push("/events");
   };
   render() {
-    console.log("redirect", this.props);
+    //console.log("redirect", this.props);
     return (
       <form className="form form--create-event" onSubmit={this.handleSubmit}>
         this is the form to create a new event

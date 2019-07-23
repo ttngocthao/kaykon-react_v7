@@ -12,3 +12,25 @@
   justify-content: center;
   background-color: pink;
 }
+.album__img-list{
+  display: flex;
+  max-width: 900px;
+  flex-wrap: wrap;
+}
+.album__img-placeholder{
+  list-style: none;
+  position: relative;
+  margin: 10px;
+}
+.delete-btn{
+  position: absolute;
+  font-size: 2rem;
+  right: 0;
+  top:-.5rem;
+  cursor: pointer;
+  /* height: 1rem; */
+  /* background-color: red; */
+}
+.album__img{
+  width: 200px;
+}
