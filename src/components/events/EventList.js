@@ -9,6 +9,8 @@ import EventSummary from "./EventSummary";
 
 const EventList = props => {
   const { events } = props;
+  // const id ='9zSEnKEAx6njlgQ3xPJf'
+  // console.log(events.9zSEnKEAx6njlgQ3xPJf)
   return (
     <div>
       {events &&
