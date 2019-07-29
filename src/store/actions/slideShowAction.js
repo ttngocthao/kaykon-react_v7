@@ -41,3 +41,17 @@ export const nextSlide = data => {
     dispatch({ type: "NEXT_SLIDE", index });
   };
 };
+
+export const editSlideShow = () => {
+  return (dispatch, getState) => {
+    const editingSlideShow = getState().slideShow.editingSlideShow;
+    console.log("from slideshow action", editingSlideShow);
+    dispatch({ type: "EDIT_SLIDESHOW", editingSlideShow: !editingSlideShow });
+  };
+};
+
+export const exitEditMode = () => {
+  return (dispatch, getState) => {
+    dispatch({ type: "EXIT_EDITMODE", editingSlideShow: false });
+  };
+};

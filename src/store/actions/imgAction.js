@@ -1,9 +1,9 @@
-export const uploadImg = (album, image, firebase) => {
+export const uploadImg = (album, image, collection, firebase) => {
   return (dispatch, getState, { getFirestore }) => {
     let progress;
     //firestore for database
     const firestore = getFirestore();
-    const albumRef = firestore.collection("gallery").doc(album);
+    const albumRef = firestore.collection(collection).doc(album);
     albumRef.get().then(function(doc) {
       if (doc.exists) {
         console.log("Document data:", doc.data());
@@ -65,14 +65,11 @@ export const deleteImg = (imageName, imageUrl, albumName, firebase) => {
   return (dispatch, getState, { getFirestore }) => {
     console.log("imageName,albumName from imgAction", imageName, albumName);
     const firestore = getFirestore();
-    // firestore
-    //   .collection("gallery")
-    //   .doc(albumName)
-    //   .add({ test: "hello" })
-    //   .then(() => {
-    //     dispatch({ type: "IMG_DELETED" });
-    //   });
+
+    // Create a reference to the file in database to delete
     const imgRef = firestore.collection("gallery").doc(albumName);
+    // Create a reference to the file in store to delete
+    const fileRef = firebase.storage().ref(`${albumName}/${imageName}`);
     imgRef
       .update({
         photos: firebase.firestore.FieldValue.arrayRemove({
@@ -81,8 +78,16 @@ export const deleteImg = (imageName, imageUrl, albumName, firebase) => {
         })
       })
       .then(() => {
-        dispatch({ type: "IMG_DELETED" });
+        fileRef
+          .delete()
+          .then(() => {
+            dispatch({ type: "IMG_DELETED" });
+          })
+          .catch(err => {
+            dispatch({ type: "IMG_DELETED_ERROR", err });
+          });
       });
+
     // console.log('imgRef',imgRef)
     //dispatch({ type: "IMG_DELETED" });
   };

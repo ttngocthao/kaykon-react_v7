@@ -14,7 +14,8 @@ class ImgUpload extends Component {
     progress: 0,
     image: null,
     imageURL: "",
-    album: "choose album"
+    album: "choose album",
+    collection: "gallery"
   };
   handleChange = e => {
     this.setState({
@@ -32,11 +33,11 @@ class ImgUpload extends Component {
   // };
   handleSubmit = e => {
     e.preventDefault();
-    const { album, image } = this.state;
+    const { album, image, collection } = this.state;
     if (album === "choose album" || image === null) {
       alert("Please select album and image");
     } else {
-      this.props.uploadImg(album, image, this.props.firebase);
+      this.props.uploadImg(album, image, collection, this.props.firebase);
     }
   };
   render() {
@@ -73,7 +74,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    uploadImg: (album, newImg, fb) => dispatch(uploadImg(album, newImg, fb))
+    uploadImg: (album, newImg, collection, fb) =>
+      dispatch(uploadImg(album, newImg, collection, fb))
   };
 };
 export default compose(

@@ -14,6 +14,7 @@ class NewAlbum extends Component {
     progress: 0,
     images: null,
     imageURL: "",
+    collection: "gallery",
     albumName: ""
   };
   handleChange = e => {
@@ -28,19 +29,17 @@ class NewAlbum extends Component {
     });
     //console.log(this.state.album);
   };
-  // test = () => {
-  //   alert("you choose " + this.state.album);
-  // };
+
   handleSubmit = e => {
     e.preventDefault();
-    const { images, albumName } = this.state;
+    const { images, albumName, collection } = this.state;
     console.log("image+albumName", images, albumName);
     // for (let image of images) {
     //   this.props.uploadImg(albumName, image, this.props.firebase);
     // }
 
     this.state.images.forEach(image => {
-      this.props.uploadImg(albumName, image, this.props.firebase);
+      this.props.uploadImg(albumName, image, collection, this.props.firebase);
     });
 
     //this.props.uploadImg(albumName,this.state.images,this.props.firebase)
@@ -84,7 +83,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    uploadImg: (album, newImg, fb) => dispatch(uploadImg(album, newImg, fb))
+    uploadImg: (album, newImg, collection, fb) =>
+      dispatch(uploadImg(album, newImg, collection, fb))
   };
 };
 export default compose(
