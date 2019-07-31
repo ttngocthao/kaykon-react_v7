@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -6,11 +7,12 @@ import { firestoreConnect } from "react-redux-firebase";
 import { firebaseConnect } from "react-redux-firebase";
 
 import { exitEditMode } from "../../store/actions/slideShowAction";
+import { uploadImg, deleteImg } from "../../store/actions/slideShowAction";
+import ImgList from "../layout/ImgList";
 
 class EditSlide extends Component {
   state = {
-    images: null,
-    albumName: "Carousel"
+    images: null
   };
   handleChange = e => {
     const images = Array.from(e.target.files);
@@ -20,22 +22,21 @@ class EditSlide extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { images, albumName } = this.state;
-    console.log("image+albumName", images, albumName);
-    // for (let image of images) {
-    //   this.props.uploadImg(albumName, image, this.props.firebase);
-    // }
-
+    const { images } = this.state;
+    console.log("image+albumName", images);
     this.state.images.forEach(image => {
-      this.props.uploadImg(albumName, image, this.props.firebase);
+      this.props.uploadImg(image, this.props.firebase);
     });
-
-    //this.props.uploadImg(albumName,this.state.images,this.props.firebase)
   };
   exitEditModeHandle = () => {
     this.props.exitEditMode();
   };
+
   render() {
+    const { auth, data } = this.props;
+    if (!auth.uid) {
+      return <Redirect to="/admin" />;
+    }
     return (
       <div className="modal__container">
         <div className="modal__content-wrap">
@@ -57,7 +58,26 @@ class EditSlide extends Component {
             </div>
             <button>Upload</button>
           </form>
-          <h2>show all the images in slideshow gallery</h2>
+          <h2>There are {data && data.length} images in slideshow gallery</h2>
+          <ul className="album__img-list">
+            {data &&
+              data.map((item, index) => {
+                return (
+                  <ImgList
+                    key={index}
+                    auth={auth.uid}
+                    src={item.url}
+                    deleteImgHandle={() =>
+                      this.props.deleteImg(
+                        item.name,
+                        item.id,
+                        this.props.firebase
+                      )
+                    }
+                  />
+                );
+              })}
+          </ul>
         </div>
       </div>
     );
@@ -66,12 +86,15 @@ class EditSlide extends Component {
 
 const mapStateToProps = state => {
   console.log("state from edit slide", state);
-  return { state };
+  return { auth: state.firebase.auth, data: state.firestore.ordered.Carousel };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    exitEditMode: () => dispatch(exitEditMode())
+    exitEditMode: () => dispatch(exitEditMode()),
+    uploadImg: (image, firebase) => dispatch(uploadImg(image, firebase)),
+    deleteImg: (imageName, docId, firebase) =>
+      dispatch(deleteImg(imageName, docId, firebase))
   };
 };
 

@@ -22,9 +22,12 @@ const eventReducer = (state = initiState, action) => {
     case "IMG_DELETED":
       console.log("image was deleted successfully");
       return { ...state };
-    case 'IMG_DELETED_ERROR':
-      console.log('image was not deleted');
-      return {...state,errorMsg: action.err}
+    case "IMG_DELETED_ERROR":
+      console.log("image was not deleted");
+      return { ...state, errorMsg: action.err };
+    case "DELETE_ALBUM":
+      console.log("album is deleted successfully ");
+      return { ...state };
     default:
       return state;
   }

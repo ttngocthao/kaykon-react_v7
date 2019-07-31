@@ -11,6 +11,15 @@
   align-items: center;
   justify-content: center;
   background-color: pink;
+  position: relative;
+}
+.delete-btn__album {
+  position: absolute;
+  font-size: 2rem;
+  color: black;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
 }
 .album__img-list {
   display: flex;
@@ -66,8 +75,6 @@
   width: 100vw;
 }
 .btn__edit-slideShow {
-  position: absolute;
-  right: 0;
   padding: 0px 20px;
   cursor: pointer;
 }
@@ -77,6 +84,7 @@
   background-color: black;
   width: 100vw;
   height: 100vh;
+  overflow: auto;
   top: 0;
   left: 0;
   z-index: 5;
@@ -96,4 +104,10 @@
   right: 10px;
   top: -5px;
   cursor: pointer;
+}
+
+.carousel-img {
+  max-width: 200px;
+  max-height: 300px;
+  overflow: hidden;
 }

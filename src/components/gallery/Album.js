@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -6,6 +6,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { firebaseConnect } from "react-redux-firebase";
 
 import { deleteImg } from "../../store/actions/imgAction";
+import ImgList from "../layout/ImgList";
 
 const Album = props => {
   const styles = {
@@ -13,41 +14,38 @@ const Album = props => {
     margin: "20px auto",
     minWidth: "100%"
   };
-  console.log("props", props);
+  //console.log("props", props);
   const { albumData, auth } = props;
-
+  // const deleteImgHandle =()=>{
+  //   props.deleteImg(
+  //     item.name,
+  //     item.url,
+  //     albumData.albumName,
+  //     props.firebase
+  //   );
+  // }
   return (
     <div style={styles}>
       {albumData ? (
         <div>
           <h2>Album Name: {albumData.albumName}</h2>
+          <h4>There are {albumData.photos.length} images in this album</h4>
           <ul className="album__img-list">
             {albumData.photos.map((item, indx) => {
               return (
-                <li className="album__img-placeholder" key={indx}>
-                  {auth.uid && (
-                    <span
-                      className="delete-btn"
-                      id={`${albumData.albumName}--${item.name}`}
-                      onClick={e => {
-                        //console.log("show me what is this?", e.target.id);
-                        props.deleteImg(
-                          item.name,
-                          item.url,
-                          albumData.albumName,
-                          props.firebase
-                        );
-                      }}
-                    >
-                      &times;
-                    </span>
-                  )}
-                  <img
-                    className="album__img"
-                    alt={albumData.albumName + "_img" + indx}
-                    src={item.url}
-                  />
-                </li>
+                <ImgList
+                  key={indx}
+                  auth={auth.uid}
+                  src={item.url}
+                  deleteImgHandle={() =>
+                    props.deleteImg(
+                      item.name,
+                      item.url,
+                      albumData.albumName,
+                      props.firebase
+                    )
+                  }
+                />
               );
             })}
           </ul>

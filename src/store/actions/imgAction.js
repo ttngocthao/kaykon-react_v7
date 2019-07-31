@@ -4,6 +4,7 @@ export const uploadImg = (album, image, collection, firebase) => {
     //firestore for database
     const firestore = getFirestore();
     const albumRef = firestore.collection(collection).doc(album);
+    //check if the document is existed
     albumRef.get().then(function(doc) {
       if (doc.exists) {
         console.log("Document data:", doc.data());
@@ -22,12 +23,9 @@ export const uploadImg = (album, image, collection, firebase) => {
       .ref(`${album}/${image.name}`)
       .put(image);
 
-    //firestore.collection("gallery").doc(album).add({})
     uploadTask.on(
       "state_changed",
       function(snapshot) {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         //console.log("Upload is " + progress + "% done");
         progress === 100 && alert("Done!");
@@ -39,10 +37,6 @@ export const uploadImg = (album, image, collection, firebase) => {
         uploadTask.snapshot.ref
           .getDownloadURL()
           .then(function(downloadURL) {
-            //const albumRef = firestore.collection("gallery").doc(album);
-
-            //CHECK IF THE ALBUM EXISTS
-
             albumRef.update({
               photos: firebase.firestore.FieldValue.arrayUnion({
                 name: image.name,
@@ -87,8 +81,36 @@ export const deleteImg = (imageName, imageUrl, albumName, firebase) => {
             dispatch({ type: "IMG_DELETED_ERROR", err });
           });
       });
+  };
+};
 
-    // console.log('imgRef',imgRef)
-    //dispatch({ type: "IMG_DELETED" });
+export const deleteAlbum = (albumName, firebase) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //check how many photos in the album
+    const firestore = getFirestore();
+    const albumRef = firestore.collection("gallery").doc(albumName);
+    //check how many photos in the album
+    albumRef
+      .get()
+      .then(doc => {
+        const photosLength = doc.data().photos.length;
+        console.log(photosLength);
+        if (photosLength === 0) {
+          //albumRef.delete();
+          alert("yes");
+        } else {
+          alert("You need to delete all photos first!");
+        }
+      })
+      .then(() => {
+        dispatch({ type: "DELETE_ALBUM" });
+      });
+    // .then(()=>{
+    //   albumRef.update({
+    //   albumName: firebase.firestore.FieldValue.delete(),
+    //   photos: firebase.firestore.FieldValue.delete()
+    // });
+    // })
+    //if there is no photos in the album, remove albumName field in the document
   };
 };

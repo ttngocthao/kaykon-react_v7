@@ -45,48 +45,68 @@ class Carousel extends Component {
     // console.log("this.state", this.state);
     // console.log("this.props", this.props);
     const { data, currentImgIndex, auth, editingSlideShow } = this.props;
-
-    return (
-      <Fragment>
-        <div className="carousel-container">
-          {data ? (
-            <Fragment>
-              {auth.uid && (
-                <p
-                  className="btn__edit-slideShow"
-                  onClick={this.editingSlideShowHandle}
-                >
-                  Edit Slide Show
-                </p>
-              )}
-              {editingSlideShow && <EditSlide />}
-              <Arrow
-                direction="left"
-                clickFunction={this.previousSlide}
-                glyph="&#9664;"
-              />
-              <ImgSlide url={data && data[currentImgIndex].url} />
-              <Arrow
-                direction="right"
-                clickFunction={this.nextSlide}
-                glyph="&#9654;"
-              />
-            </Fragment>
-          ) : (
-            <h4>Loading...</h4>
+    let slideShowContent;
+    if (data && data.length === 0) {
+      slideShowContent = (
+        <Fragment>
+          <h4>No image available</h4>
+          {auth.uid && (
+            <p
+              className="btn__edit-slideShow"
+              onClick={this.editingSlideShowHandle}
+            >
+              Edit Slide Show
+            </p>
           )}
-        </div>
-        <div className="indicator-wrap">
-          {data && data.length !== 0
-            ? data.map((img, ind) => (
+        </Fragment>
+      );
+    } else if (data && data.length !== 0) {
+      slideShowContent = (
+        <Fragment>
+          {auth.uid && (
+            <p
+              className="btn__edit-slideShow"
+              onClick={this.editingSlideShowHandle}
+            >
+              Edit Slide Show
+            </p>
+          )}
+
+          <div className="carousel-container">
+            <Arrow
+              direction="left"
+              clickFunction={this.previousSlide}
+              glyph="&#9664;"
+            />
+            <ImgSlide url={data && data[currentImgIndex].url} />
+            <Arrow
+              direction="right"
+              clickFunction={this.nextSlide}
+              glyph="&#9654;"
+            />
+            <div className="indicator-wrap">
+              {data.map((img, ind) => (
                 <ImgIndicator
                   key={ind}
                   index={ind}
                   currentImgIndex={currentImgIndex}
                 />
-              ))
-            : "loading"}
-        </div>
+              ))}
+            </div>
+          </div>
+        </Fragment>
+      );
+    }
+    return (
+      <Fragment>
+        {data ? (
+          <Fragment>
+            {slideShowContent}
+            {editingSlideShow && <EditSlide />}
+          </Fragment>
+        ) : (
+          <h4>Loading...</h4>
+        )}
       </Fragment>
     );
   }

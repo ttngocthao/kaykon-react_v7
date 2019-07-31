@@ -1,20 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 
-import { getImgs } from "../../store/actions/imgAction";
-import AlbumThumbnai from "./AlbumThumbnail";
+import { deleteAlbum } from "../../store/actions/imgAction";
+import AlbumThumbnail from "./AlbumThumbnail";
 //import Album from "./Album";
 
 const Gallery = props => {
   // Object.keys()-->return an array of properties from the object
   //props.gallery && console.log("object key", Object.keys(props.gallery));
 
-  //props.gallery &&
-  // Object.keys(props.gallery).map(album => console.log(props.gallery[album]));
   return (
     <div>
       <h1>Gallery</h1>
@@ -31,12 +29,18 @@ const Gallery = props => {
             Object.keys(props.gallery).map((alb, indx) => {
               const gallery = props.gallery;
               return (
-                <Link key={indx} to={`/gallery/${gallery[alb].albumName}`}>
-                  <AlbumThumbnai
+                <div key={indx} className="album-thumbnail">
+                  <AlbumThumbnail
                     albumName={gallery[alb].albumName}
                     imgUrls={gallery[alb].imgUrls}
+                    length={gallery[alb].photos.length}
+                    auth={props.auth}
+                    deleteHandle={() => {
+                      props.deleteAlbum(gallery[alb].albumName, props.firebase);
+                    }}
                   />
-                </Link>
+                  <Link to={`/gallery/${gallery[alb].albumName}`}>View</Link>
+                </div>
               );
             })}
         </div>
@@ -49,13 +53,15 @@ const Gallery = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getImgs: fb => dispatch(getImgs(fb))
+    deleteAlbum: (albumName, firebase) =>
+      dispatch(deleteAlbum(albumName, firebase))
   };
 };
 const mapStateToProps = state => {
   //console.log("gallery", state);
   return {
-    gallery: state.firestore.data.gallery
+    gallery: state.firestore.data.gallery,
+    auth: state.firebase.auth
   };
 };
 export default compose(
