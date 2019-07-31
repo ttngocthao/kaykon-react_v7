@@ -27,22 +27,15 @@ class NewAlbum extends Component {
     this.setState({
       albumName: e.target.value
     });
-    //console.log(this.state.album);
   };
 
   handleSubmit = e => {
     e.preventDefault();
     const { images, albumName, collection } = this.state;
-    console.log("image+albumName", images, albumName);
-    // for (let image of images) {
-    //   this.props.uploadImg(albumName, image, this.props.firebase);
-    // }
-
+    //console.log("image+albumName", images, albumName);
     this.state.images.forEach(image => {
       this.props.uploadImg(albumName, image, collection, this.props.firebase);
     });
-
-    //this.props.uploadImg(albumName,this.state.images,this.props.firebase)
   };
   render() {
     const { auth } = this.props;
