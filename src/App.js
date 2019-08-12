@@ -21,6 +21,7 @@ import Album from "./components/gallery/Album";
 import NewAlbum from "./components/gallery/NewAlbum";
 import Curriculum from "./components/Curriculum/Curriculum";
 import MenuList from "./components/Menu/MenuList";
+import AddMenuForm from "./components/Menu/AddMenuForm";
 class App extends Component {
   render() {
     const { auth } = this.props;
@@ -43,6 +44,7 @@ class App extends Component {
               <Route path="/gallery" exact component={Gallery} />
               <Route path="/admin" exact component={SignInForm} />
               <Route path="/contact" exact component={Contact} />
+              <Route path="/add-menu" exact component={AddMenuForm} />
             </Switch>
           </Fragment>
         ) : (

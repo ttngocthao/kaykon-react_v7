@@ -11,7 +11,7 @@ export const getMenu = () => {
           //console.log(doc.id, " => ", doc.data());
           menuList.push({
             menuId: doc.id,
-            from: doc.data().from.toDate(),
+            from: moment(doc.data().from.toDate()).format("DD MMM YYYY"),
             to: moment(doc.data().to.toDate()).format("DD MMM YYYY"),
             mon: doc.data().Mon,
             tue: doc.data().Tue,
