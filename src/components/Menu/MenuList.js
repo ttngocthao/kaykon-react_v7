@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -12,10 +13,15 @@ class MenuList extends Component {
   }
   render() {
     console.log("this.props from menu list", this.props);
-    const { menuList } = this.props;
+    const { menuList, auth } = this.props;
     return (
       <div>
         <h2>This is menu list</h2>
+        {auth.uid && (
+          <p>
+            <Link to="/add-menu">Add new menu</Link>
+          </p>
+        )}
         {menuList
           ? menuList.map(item => {
               return <MenuDisplay key={item.menuId} item={item} />;
@@ -27,7 +33,7 @@ class MenuList extends Component {
 }
 const mapStateToProps = state => {
   console.log("menu list", state);
-  return { menuList: state.menu.menuList };
+  return { menuList: state.menu.menuList, auth: state.firebase.auth };
 };
 const mapDispatchToProps = dispatch => {
   return {
