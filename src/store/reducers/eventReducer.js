@@ -13,6 +13,12 @@ const eventReducer = (state = initiState, action) => {
     case "CREATE_EVENT_ERROR":
       console.log("fail to create an event", action.err);
       return state;
+    case "GET_EVENTS":
+      console.log("get all events");
+      return { ...state, events: action.events };
+    case "DELETE_EVENT":
+      console.log("event delete successfully");
+      return { ...state, events: action.events };
     default:
       return state;
   }

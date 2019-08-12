@@ -34,19 +34,36 @@ class Gallery extends Component {
               Object.keys(gallery).map((alb, indx) => {
                 return (
                   <div key={indx} className="album-thumbnail">
-                    <AlbumThumbnail
-                      albumName={gallery[alb].albumName}
-                      imgUrls={gallery[alb].imgUrls}
-                      length={gallery[alb].photos.length}
-                      auth={auth}
-                      deleteHandle={() => {
-                        this.props.deleteAlbum(
-                          gallery[alb].albumName,
-                          this.props.firebase
-                        );
-                      }}
-                    />
-                    <Link to={`/gallery/${gallery[alb].albumName}`}>View</Link>
+
+                    {auth.uid && (
+                      <p
+                        className="delete-btn__album"
+                        onClick={() =>
+                          this.props.deleteAlbum(
+                            gallery[alb].albumName,
+                            this.props.firebase
+                          )
+                        }
+                      >
+                        &times;
+                      </p>
+                    )}
+
+                    <Link to={`/gallery/${gallery[alb].albumName}`}>
+                      <AlbumThumbnail
+                        albumName={gallery[alb].albumName}
+                        imgUrls={gallery[alb].imgUrls}
+                        length={gallery[alb].photos.length}
+                        auth={auth}
+                        deleteHandle={() => {
+                          this.props.deleteAlbum(
+                            gallery[alb].albumName,
+                            this.props.firebase
+                          );
+                        }}
+                      />
+                    </Link>
+
                   </div>
                 );
               })}

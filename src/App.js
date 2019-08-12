@@ -19,6 +19,8 @@ import AdminLanding from "./components/AdminLanding";
 import Gallery from "./components/gallery/Gallery";
 import Album from "./components/gallery/Album";
 import NewAlbum from "./components/gallery/NewAlbum";
+import Curriculum from "./components/Curriculum/Curriculum";
+import MenuList from "./components/Menu/MenuList";
 class App extends Component {
   render() {
     const { auth } = this.props;
@@ -36,6 +38,8 @@ class App extends Component {
               <Route path="/create-album" exact component={NewAlbum} />
               <Route path="/upload-photo" exact component={ImgUpload} />
               <Route path="/admin-landing" exact component={AdminLanding} />
+              <Route path="/curriculum" exact component={Curriculum} />
+              <Route path="/menu" exact component={MenuList} />
               <Route path="/gallery" exact component={Gallery} />
               <Route path="/admin" exact component={SignInForm} />
               <Route path="/contact" exact component={Contact} />

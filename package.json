@@ -1,5 +1,7 @@
 {
-  "name": "kaykon-react-v13",
+
+  "name": "kaykon-react-v18",
+
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -7,7 +9,9 @@
   "dependencies": {
     "firebase": "6.3.0",
     "firebase-admin": "8.2.0",
+    "moment": "2.24.0",
     "react": "16.8.6",
+    "react-datepicker": "2.8.0",
     "react-dom": "16.8.6",
     "react-firebase-file-uploader": "2.4.2",
     "react-redux": "7.1.0",

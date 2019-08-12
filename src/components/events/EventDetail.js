@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -8,10 +9,12 @@ const EventDetail = props => {
   const { event } = props;
   console.log("event detail", props);
   if (event) {
+    console.log(event.date.toDate());
     return (
       <div>
         <h3>{event.name}</h3>
-        <h4>{event.date}</h4>
+        <h4>{moment(event.date.toDate()).format("DD MMM YYYY")}</h4>
+
         <div>{event.text}</div>
       </div>
     );

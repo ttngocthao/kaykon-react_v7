@@ -1,36 +1,57 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
 
 import EventSummary from "./EventSummary";
 
-const EventList = props => {
-  const { events } = props;
-  // const id ='9zSEnKEAx6njlgQ3xPJf'
-  // console.log(events.9zSEnKEAx6njlgQ3xPJf)
-  return (
-    <div>
-      {events &&
-        events.map((event, indx) => {
-          return (
-            <Link key={indx} to={`events/${event.id}`}>
-              <EventSummary event={event} />
-            </Link>
-          );
-        })}
-    </div>
-  );
-};
+import { getAllEvents, deleteEvent } from "../../store/actions/eventAction";
+
+class EventList extends Component {
+  componentDidMount() {
+    this.props.getAllEvents();
+  }
+  render() {
+    const { events, auth } = this.props;
+    return (
+      <div>
+        <h3>This is an event list</h3>
+        {events &&
+          events.map((event, indx) => {
+            return (
+              <div key={indx} className="event-summary__wrapper">
+                {auth.uid && (
+                  <p onClick={() => this.props.deleteEvent(event.id)}>
+                    &times;
+                  </p>
+                )}
+                <Link to={`events/${event.id}`}>
+                  <EventSummary event={event} />
+                </Link>
+              </div>
+            );
+          })}
+      </div>
+    );
+  }
+}
 const mapStateToProps = state => {
   console.log("eventlist", state);
   return {
-    events: state.firestore.ordered.events
+    events: state.event.events,
+    auth: state.firebase.auth
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    getAllEvents: () => dispatch(getAllEvents()),
+    deleteEvent: eventId => dispatch(deleteEvent(eventId))
   };
 };
 export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{ collection: "events" }, { collection: "gallery" }])
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(EventList);

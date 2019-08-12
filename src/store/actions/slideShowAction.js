@@ -115,7 +115,7 @@ export const uploadImg = (image, firebase) => {
 export const deleteImg = (imageName, docId, firebase) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
-    let data = [];
+    let data = []; //used to update the state after an item is deleted
     // Create a reference to the file in database to delete
     const imgRef = firestore.collection("Carousel").doc(docId);
     // console.log("docId", docId);

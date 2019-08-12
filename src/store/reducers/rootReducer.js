@@ -6,6 +6,7 @@ import authReducer from "./authReducer";
 import eventReducer from "./eventReducer";
 import imgReducer from "./imgReducer";
 import slideShowReducer from "./slideShowReducer";
+import menuReducer from "./menuReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   firebase: firebaseReducer,
   event: eventReducer,
   image: imgReducer,
-  slideShow: slideShowReducer
+  slideShow: slideShowReducer,
+  menu: menuReducer
 });
 export default rootReducer;

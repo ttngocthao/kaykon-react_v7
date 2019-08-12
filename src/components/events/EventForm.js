@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import { connect } from "react-redux";
 
 import { compose } from "redux";
@@ -19,6 +22,11 @@ class EventForm extends Component {
   renderRedirect = () => {
     return <Redirect to="/target" />;
   };
+  dateHandleChange = date => {
+    this.setState({
+      date: date
+    });
+  };
   handleSubmit = e => {
     e.preventDefault();
     this.props.createEvent(this.state);
@@ -35,9 +43,17 @@ class EventForm extends Component {
           <label htmlFor="name">Event Name</label>
           <input name="name" onChange={this.handleChange} />
         </div>
-        <div className="input-field">
+        {/* <div className="input-field">
           <label htmlFor="date">Event Date</label>
           <input name="date" onChange={this.handleChange} />
+        </div> */}
+        <div className="input-field">
+          <label htmlFor="date">Event Date</label>
+          <DatePicker
+            selected={this.state.date}
+            onChange={this.dateHandleChange}
+            dateFormat="dd-MM-yy"
+          />
         </div>
         <div className="input-field">
           <label htmlFor="text">Event Content</label>
