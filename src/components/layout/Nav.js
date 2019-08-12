@@ -23,6 +23,10 @@ const Nav = props => {
 
         <Link to="/gallery">Gallery</Link>
 
+        <Link to="/menu">Menu</Link>
+
+        <Link to="/curriculum">Curriculum</Link>
+
         {auth.uid ? <AdminLinks /> : <PublicLinks />}
       </div>
     </nav>

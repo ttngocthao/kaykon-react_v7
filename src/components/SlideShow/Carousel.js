@@ -20,6 +20,8 @@ import {
 class Carousel extends Component {
   componentDidMount() {
     this.props.getSlideShow();
+    //FOR DEVELOPING PURPOSES ONLY
+    //UNCOMMENT THESE BEFORE DEPLOYMENT
     //slideShow runs automatically
     // this.carouselInterval = setInterval(() => {
     //   this.nextSlide();

@@ -83,34 +83,95 @@ export const deleteImg = (imageName, imageUrl, albumName, firebase) => {
       });
   };
 };
-
+export const getAlbums = () => {
+  return (dispatch, getState, { getFirestore, getFirebase }) => {
+    const firestore = getFirestore();
+    let gallery = [];
+    firestore
+      .collection("gallery")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          //console.log(doc.id, " => ", doc.data());
+          gallery.push({ albumName: doc.id, photos: doc.data().photos });
+          return gallery;
+        });
+      })
+      .then(() => {
+        dispatch({ type: "GET_ALBUMS", gallery });
+      });
+  };
+};
 export const deleteAlbum = (albumName, firebase) => {
   return (dispatch, getState, { getFirestore }) => {
     //check how many photos in the album
+    let gallery = [];
+    let itemNameList = [];
     const firestore = getFirestore();
     const albumRef = firestore.collection("gallery").doc(albumName);
-    //check how many photos in the album
+    //const fileRef = firebase.storage().ref(albumName);
+
     albumRef
       .get()
       .then(doc => {
-        const photosLength = doc.data().photos.length;
-        console.log(photosLength);
-        if (photosLength === 0) {
-          //albumRef.delete();
-          alert("yes");
-        } else {
-          alert("You need to delete all photos first!");
-        }
+        doc.data().photos.length !== 0 &&
+          doc.data().photos.map(item => {
+            return itemNameList.push(item.name);
+          });
       })
       .then(() => {
-        dispatch({ type: "DELETE_ALBUM" });
+        //delete the documents
+        console.log("itemNameList", itemNameList);
+        albumRef.delete().then(() => {
+          firestore
+            .collection("gallery")
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                console.log(doc.id, " => ", doc.data());
+                gallery.push({ albumName: doc.id, photos: doc.data().photos });
+                return gallery;
+              });
+            })
+            .then(() => {
+              dispatch({ type: "DELETE_ALBUM", gallery });
+            })
+            .catch(err => {
+              dispatch({ type: "ERROR_DELETE_ALBUM", err });
+            });
+        });
+      })
+      .then(() => {
+        console.log("testing");
+        itemNameList.forEach(item => {
+          firebase
+            .storage()
+            .ref(`${albumName}/${item}`)
+            .delete();
+        });
       });
-    // .then(()=>{
-    //   albumRef.update({
-    //   albumName: firebase.firestore.FieldValue.delete(),
-    //   photos: firebase.firestore.FieldValue.delete()
-    // });
-    // })
-    //if there is no photos in the album, remove albumName field in the document
+
+    // albumRef
+    //   .delete()
+    //   .then(() => {
+    //     firestore
+    //       .collection("gallery")
+    //       .get()
+    //       .then(querySnapshot => {
+    //         querySnapshot.forEach(doc => {
+    //           console.log(doc.id, " => ", doc.data());
+    //           gallery.push({ albumName: doc.id, photos: doc.data().photos });
+    //           return gallery;
+    //         });
+    //       })
+    //       .then(() => {
+    //         dispatch({ type: "DELETE_ALBUM", gallery });
+    //       }).catch(err => {
+    //         dispatch({ type: "ERROR_DELETE_ALBUM", err });
+    //       });;
+    //   })
+    //   .catch(err => {
+    //     dispatch({ type: "ERROR_DELETE_ALBUM", err });
+    //   });
   };
 };
