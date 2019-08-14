@@ -27,6 +27,8 @@ const Nav = props => {
 
         <Link to="/curriculum">Curriculum</Link>
 
+        <Link to="/excursion">Excursion</Link>
+
         {auth.uid ? <AdminLinks /> : <PublicLinks />}
       </div>
     </nav>

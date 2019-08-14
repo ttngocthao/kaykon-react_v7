@@ -7,6 +7,7 @@ import eventReducer from "./eventReducer";
 import imgReducer from "./imgReducer";
 import slideShowReducer from "./slideShowReducer";
 import menuReducer from "./menuReducer";
+import excursionReducer from "./excursionReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   event: eventReducer,
   image: imgReducer,
   slideShow: slideShowReducer,
-  menu: menuReducer
+  menu: menuReducer,
+  excursion: excursionReducer
 });
 export default rootReducer;

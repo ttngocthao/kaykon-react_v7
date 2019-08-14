@@ -175,3 +175,17 @@ export const deleteAlbum = (albumName, firebase) => {
     //   });
   };
 };
+
+export const viewImg = imgUrl => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    //let viewImgMode = getState().image.viewImgMode
+
+    dispatch({ type: "VIEW_IMG", viewImgMode: true, imgUrl });
+  };
+};
+
+export const exitViewImg = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch({ type: "EXIT_VIEW_IMG", viewImgMode: false });
+  };
+};
