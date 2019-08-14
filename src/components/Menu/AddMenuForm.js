@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 import { connect } from "react-redux";
 import { compose } from "redux";
 
@@ -182,11 +183,13 @@ class AddMenuForm extends Component {
   };
   render() {
     const { monMenu, tueMenu, wedMenu, thuMenu, friMenu } = this.state;
+
     return (
       <div>
         <h2>Add new menu for the week</h2>
         <form>
           <div className="input-field">
+
             <label htmlFor="dateFrom">From </label>
             <DatePicker
               dateFormat="dd-MM-yy"
@@ -332,12 +335,14 @@ class AddMenuForm extends Component {
 
           <div className="input-field">
             <button onClick={this.submitHandle}>Create this menu</button>
+
           </div>
         </form>
       </div>
     );
   }
 }
+
 const mapStateToProps = state => {
   return state;
 };
@@ -352,3 +357,5 @@ export default compose(
     mapDispatchToProps
   )
 )(AddMenuForm);
+
+

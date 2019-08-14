@@ -34,6 +34,7 @@ class Gallery extends Component {
               Object.keys(gallery).map((alb, indx) => {
                 return (
                   <div key={indx} className="album-thumbnail">
+
                     {auth.uid && (
                       <p
                         className="delete-btn__album"
@@ -62,6 +63,7 @@ class Gallery extends Component {
                         }}
                       />
                     </Link>
+
                   </div>
                 );
               })}

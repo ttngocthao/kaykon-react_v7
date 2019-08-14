@@ -6,11 +6,13 @@ const MenuDisplay = props => {
 
   return (
     <div className="weekly-menu__container">
+
       {auth.uid && (
         <span className="btn__delete-menu" onClick={props.deleteMenuHandle}>
           &times;
         </span>
       )}
+
 
       <h4>
         From {item.from} to {item.to}

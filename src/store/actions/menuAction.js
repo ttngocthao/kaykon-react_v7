@@ -8,6 +8,7 @@ export const getMenu = () => {
       .orderBy("startDate", "desc")
       .get()
       .then(querySnapshot => {
+
         if (querySnapshot) {
           querySnapshot.forEach(function(doc) {
             //console.log(doc.id, " => ", doc.data());
@@ -21,6 +22,7 @@ export const getMenu = () => {
               thu: doc.data().thuMenu,
               fri: doc.data().friMenu
             });
+
           });
         } else {
           console.log("querySnapshot", querySnapshot);

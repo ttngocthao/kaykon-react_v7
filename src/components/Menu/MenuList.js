@@ -19,6 +19,7 @@ class MenuList extends Component {
         <h2>This is menu list</h2>
         {auth.uid && (
           <p>
+
             <Link to="/create-menu">Add new menu</Link>
           </p>
         )}
@@ -39,6 +40,7 @@ class MenuList extends Component {
         ) : (
           <h3>Loading...</h3>
         )}
+
       </div>
     );
   }
