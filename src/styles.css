@@ -1,6 +1,22 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito&display=swap);
+body {
+  font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+div,
+p,
+figure {
+  padding: 0;
+  margin: 0;
+}
 .App {
-  font-family: sans-serif;
-  text-align: center;
 }
 .album-thumbnail {
   width: 200px;
@@ -89,7 +105,7 @@
 
 .modal__container {
   position: fixed;
-  background-color: black;
+  background-color: rgba(230, 230, 230, 0.63);
   width: 100vw;
   height: 100vh;
   overflow: auto;
@@ -103,7 +119,7 @@
   max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
-  background-color: pink;
+  background-color: transparent;
   position: relative;
 }
 .btn__close-modal-box {
@@ -113,7 +129,14 @@
   top: -5px;
   cursor: pointer;
 }
-
+/* .modal__img-container { 
+  max-width: 1200px;
+  max-height: 100vh;
+ 
+} */
+.modal__image {
+  width: 100%;
+}
 .carousel-img {
   max-width: 200px;
   max-height: 300px;
@@ -124,4 +147,89 @@
   margin: 20px 0;
   background-color: rgb(168, 168, 168);
   padding: 10px 20px;
+}
+
+/*MENU*/
+.weekly-menu__container {
+  background-color: #d0d0d0;
+  padding: 20px;
+  position: relative;
+  margin: 20px 0;
+}
+/*EXCURSION*/
+.excur__excur-wrap {
+  max-width: 600px;
+  margin: 20px auto;
+  border: 1px pink solid;
+}
+.excur__top-wrap {
+  display: flex;
+  align-items: center
+}
+.excur__excur-time {
+  width: 4.7rem;
+  padding: 0;
+  height: 4.7rem;
+  border-radius: 10px;
+  border: 1px solid #dddddd;
+  box-shadow: 3px 3px 3px #d3d3d3;
+  background-color: white;
+}
+.excur__excur-time li {
+  list-style: none;
+  /* box-shadow: 3px 3px 3px #d3d3d3; */
+}
+.excur__excur-month {
+  background-color: red;
+  text-transform: uppercase;
+  border-bottom: 1px solid #aaaaaa;
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.2rem 0.2rem;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  border-bottom: 1px solid #dddddd;
+}
+.excur__excur-month::after,
+.excur__excur-month::before {
+  width: 0.25rem;
+  height: 0.6rem;
+  content: "";
+  background-color: black;
+  position: absolute;
+  top: -0.3rem;
+  border-radius: 15px;
+}
+.excur__excur-month::before {
+  left: 1.25rem;
+}
+.excur__excur-month::after {
+  right: 1.25rem;
+}
+.excur__excur-date {
+  font-size: 2rem;
+  text-align: center;
+  padding: 0.1rem 0.3rem;
+}
+.excur__excur-name {
+  font-size: 1.75rem;
+  padding: 1.5rem;
+}
+.excur__text-wrap {
+  display: flex;
+}
+.excur__img-wrap {
+  max-width: 200px;
+  min-width: 200px;
+}
+.excur__img {
+  width: 100%;
+}
+.excur__text {
+  padding: 0 20px;
+}
+.fa-plus-square{
+  color: #B2D334;
+  cursor: pointer;
 }

@@ -19,9 +19,6 @@ class EventForm extends Component {
     });
   };
 
-  renderRedirect = () => {
-    return <Redirect to="/target" />;
-  };
   dateHandleChange = date => {
     this.setState({
       date: date
@@ -61,7 +58,6 @@ class EventForm extends Component {
         </div>
         <div className="input-field">
           <button className="form-submit-btn">Create</button>
-          {/* <div>show errors if exist</div> */}
         </div>
       </form>
     );

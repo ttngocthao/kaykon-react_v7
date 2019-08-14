@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-import { getMenu } from "../../store/actions/menuAction";
+import { getMenu, deleteMenu } from "../../store/actions/menuAction";
 import MenuDisplay from "./MenuDisplay";
 
 class MenuList extends Component {
@@ -19,14 +19,28 @@ class MenuList extends Component {
         <h2>This is menu list</h2>
         {auth.uid && (
           <p>
-            <Link to="/add-menu">Add new menu</Link>
+
+            <Link to="/create-menu">Add new menu</Link>
           </p>
         )}
-        {menuList
-          ? menuList.map(item => {
-              return <MenuDisplay key={item.menuId} item={item} />;
-            })
-          : "<h3>Loading</h3>"}
+        {menuList && menuList.length === 0 ? (
+          <p>There is no menu available</p>
+        ) : menuList && menuList.length !== 0 ? (
+          menuList.map((item, indx) => {
+            return (
+              <MenuDisplay
+                key={indx}
+                menuId={item.menuId}
+                item={item}
+                auth={this.props.auth}
+                deleteMenuHandle={() => this.props.deleteMenu(item.menuId)}
+              />
+            );
+          })
+        ) : (
+          <h3>Loading...</h3>
+        )}
+
       </div>
     );
   }
@@ -37,7 +51,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getMenu: () => dispatch(getMenu())
+    getMenu: () => dispatch(getMenu()),
+    deleteMenu: menuId => dispatch(deleteMenu(menuId))
   };
 };
 export default compose(

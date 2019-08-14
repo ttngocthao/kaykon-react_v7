@@ -6,7 +6,9 @@ const DishesDisplay = props => {
       <ul>
         {props.dishes &&
           props.dishes.map((dish, indx) => {
-            return <li key={indx}>{dish}</li>;
+
+            return <li key={indx}>{dish.name}</li>;
+
           })}
       </ul>
     </div>

@@ -1,7 +1,9 @@
 const initiState = {
   gallery: [],
   uploadMsg: null,
-  uploadProgress: null
+  uploadProgress: null,
+  viewImgMode: false,
+  chosenImgUrl: ""
 };
 const eventReducer = (state = initiState, action) => {
   switch (action.type) {
@@ -33,6 +35,16 @@ const eventReducer = (state = initiState, action) => {
     case "CANNOT_DELETE_ALBUM":
       console.log("cant delete album because", action.err);
       return { ...state, errorMsg: action.err };
+    case "VIEW_IMG":
+      console.log("view img successfully");
+      return {
+        ...state,
+        viewImgMode: action.viewImgMode,
+        chosenImgUrl: action.imgUrl
+      };
+    case "EXIT_VIEW_IMG":
+      console.log("exit view img mode");
+      return { ...state, viewImgMode: action.viewImgMode, chosenImgUrl: "" };
     default:
       return state;
   }
