@@ -1,0 +1,23 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito&display=swap);
+@import '_gallery.scss';
+@import '_excur.scss';
+@import '_homeItem.scss';
+body {
+  font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  div,
+  p,
+  figure {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+

@@ -6,12 +6,20 @@ export const getSlideShow = () => {
       .collection("Carousel")
       .get()
       .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          //console.log(doc.id, " => ", doc.data());
-          data.push({ id: doc.id, name: doc.data().name, url: doc.data().url });
-          //console.log('data variable',data)
-          return data;
-        });
+        if (querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            //console.log(doc.id, " => ", doc.data());
+            data.push({
+              id: doc.id,
+              name: doc.data().name,
+              url: doc.data().url
+            });
+            //console.log('data variable',data)
+            return data;
+          });
+        } else {
+          console.log("querySnapshot", querySnapshot);
+        }
       })
       .then(() => {
         dispatch({ type: "GET_CAROUSEL", data });
@@ -45,7 +53,7 @@ export const nextSlide = data => {
 export const editSlideShow = () => {
   return (dispatch, getState) => {
     const editingSlideShow = getState().slideShow.editingSlideShow;
-    console.log("from slideshow action", editingSlideShow);
+    //console.log("from slideshow action", editingSlideShow);
     dispatch({ type: "EDIT_SLIDESHOW", editingSlideShow: !editingSlideShow });
   };
 };
@@ -89,16 +97,20 @@ export const uploadImg = (image, firebase) => {
               .collection("Carousel")
               .get()
               .then(querySnapshot => {
-                querySnapshot.forEach(doc => {
-                  //console.log(doc.id, " => ", doc.data());
-                  data.push({
-                    id: doc.id,
-                    name: doc.data().name,
-                    url: doc.data().url
+                if (querySnapshot) {
+                  querySnapshot.forEach(function(doc) {
+                    //console.log(doc.id, " => ", doc.data());
+                    data.push({
+                      id: doc.id,
+                      name: doc.data().name,
+                      url: doc.data().url
+                    });
+                    //console.log('data variable',data)
+                    return data;
                   });
-                  //console.log('data variable',data)
-                  return data;
-                });
+                } else {
+                  console.log("querySnapshot", querySnapshot);
+                }
               });
           })
           .then(() => {
@@ -129,16 +141,20 @@ export const deleteImg = (imageName, docId, firebase) => {
             .collection("Carousel")
             .get()
             .then(querySnapshot => {
-              querySnapshot.forEach(doc => {
-                //console.log(doc.id, " => ", doc.data());
-                data.push({
-                  id: doc.id,
-                  name: doc.data().name,
-                  url: doc.data().url
+              if (querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                  //console.log(doc.id, " => ", doc.data());
+                  data.push({
+                    id: doc.id,
+                    name: doc.data().name,
+                    url: doc.data().url
+                  });
+                  //console.log('data variable',data)
+                  return data;
                 });
-                //console.log('data variable',data)
-                return data;
-              });
+              } else {
+                console.log("querySnapshot", querySnapshot);
+              }
             });
         })
         .then(() => {
