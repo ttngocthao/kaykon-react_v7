@@ -8,7 +8,12 @@ const ImgList = props => {
           &times;
         </span>
       )}
-      <img className="album__img" alt="" src={props.src} />
+      <img
+        className="album__img"
+        alt=""
+        src={props.src}
+        onClick={props.viewImgHandle}
+      />
     </li>
   );
 };

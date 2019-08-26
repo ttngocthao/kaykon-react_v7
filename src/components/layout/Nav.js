@@ -10,25 +10,48 @@ const Nav = props => {
   const { auth } = props;
   return (
     <nav>
-      <div>
-        <Link to="/" className="bran-logo">
-          Brand logo
-        </Link>
+      <ul>
+        <li>
+          <Link to="/" className="brand-logo">
+            Brand logo
+          </Link>
+        </li>
 
-        <Link to="/">Home</Link>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
 
-        <Link to="/events">Events</Link>
+        <li>
+          <Link to="/events">Events</Link>
+        </li>
+        <li>
+          <Link to="/contact">Contact</Link>
+        </li>
+        <li>
+          {" "}
+          <Link to="/gallery">Gallery</Link>
+        </li>
+        <li>
+          <Link to="/menu">Menu</Link>
+        </li>
+        <li>
+          <Link to="/curriculum">Curriculum</Link>
+        </li>
+        <li>
+          {" "}
+          <Link to="/excursion">Excursion</Link>
+        </li>
 
-        <Link to="/contact">Contact</Link>
-
-        <Link to="/gallery">Gallery</Link>
-
-        <Link to="/menu">Menu</Link>
-
-        <Link to="/curriculum">Curriculum</Link>
-
-        {auth.uid ? <AdminLinks /> : <PublicLinks />}
-      </div>
+        {auth.uid ? (
+          <li>
+            <AdminLinks />{" "}
+          </li>
+        ) : (
+          <li>
+            <PublicLinks />
+          </li>
+        )}
+      </ul>
     </nav>
   );
 };

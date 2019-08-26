@@ -14,30 +14,33 @@ class EventList extends Component {
   }
   render() {
     const { events, auth } = this.props;
+    let eventListContent;
+    if (events.length === 0) {
+      eventListContent = <p>There is no event in the list</p>;
+    } else {
+      eventListContent = events.map((event, indx) => {
+        return (
+          <div key={indx} className="event-summary__wrapper">
+            {auth.uid && (
+              <p onClick={() => this.props.deleteEvent(event.id)}>&times;</p>
+            )}
+            <Link to={`events/${event.id}`}>
+              <EventSummary event={event} />
+            </Link>
+          </div>
+        );
+      });
+    }
     return (
       <div>
         <h3>This is an event list</h3>
-        {events &&
-          events.map((event, indx) => {
-            return (
-              <div key={indx} className="event-summary__wrapper">
-                {auth.uid && (
-                  <p onClick={() => this.props.deleteEvent(event.id)}>
-                    &times;
-                  </p>
-                )}
-                <Link to={`events/${event.id}`}>
-                  <EventSummary event={event} />
-                </Link>
-              </div>
-            );
-          })}
+        {events ? eventListContent : <p>Loading...</p>}
       </div>
     );
   }
 }
 const mapStateToProps = state => {
-  console.log("eventlist", state);
+  //console.log("eventlist", state);
   return {
     events: state.event.events,
     auth: state.firebase.auth

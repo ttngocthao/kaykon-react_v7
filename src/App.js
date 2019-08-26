@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { firebaseConnect } from "react-redux-firebase";
 
-import "./styles.css";
+import "../src/styles/styles.css";
+import "../src/styles/styles.scss";
 
 import Nav from "./components/layout/Nav";
 import Landing from "./components/Landing";
@@ -21,6 +22,10 @@ import Album from "./components/gallery/Album";
 import NewAlbum from "./components/gallery/NewAlbum";
 import Curriculum from "./components/Curriculum/Curriculum";
 import MenuList from "./components/Menu/MenuList";
+import AddMenuForm from "./components/Menu/AddMenuForm";
+import ExcursionList from "./components/Excursion/ExcursionList";
+import AddExcurForm from "./components/Excursion/AddExcurForm";
+
 class App extends Component {
   render() {
     const { auth } = this.props;
@@ -43,6 +48,9 @@ class App extends Component {
               <Route path="/gallery" exact component={Gallery} />
               <Route path="/admin" exact component={SignInForm} />
               <Route path="/contact" exact component={Contact} />
+              <Route path="/create-menu" exact component={AddMenuForm} />
+              <Route path="/excursion" exact component={ExcursionList} />
+              <Route path="/create-excursion" exact component={AddExcurForm} />
             </Switch>
           </Fragment>
         ) : (

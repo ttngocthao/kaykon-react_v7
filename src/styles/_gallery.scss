@@ -1,0 +1,40 @@
+.album-thumbnail {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  margin: 20px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  background-color: pink;
+  position: relative;
+}
+.album-thumbnail__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 20px;
+}
+.delete-btn__album {
+  position: absolute;
+  font-size: 2rem;
+  color: black;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
+  margin: 0;
+}
+.album__img-list {
+  display: flex;
+  max-width: 900px;
+  flex-wrap: wrap;
+}
+.album__img-placeholder {
+  list-style: none;
+  position: relative;
+  margin: 10px;
+}
+.album__img {
+  width: 200px;
+}

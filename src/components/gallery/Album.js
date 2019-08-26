@@ -1,12 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { firebaseConnect } from "react-redux-firebase";
 
-import { deleteImg } from "../../store/actions/imgAction";
+import { deleteImg, viewImg, exitViewImg } from "../../store/actions/imgAction";
 import ImgList from "../layout/ImgList";
+import ModalImg from "../layout/ModalImg";
 
 const Album = props => {
   const styles = {
@@ -33,19 +34,27 @@ const Album = props => {
           <ul className="album__img-list">
             {albumData.photos.map((item, indx) => {
               return (
-                <ImgList
-                  key={indx}
-                  auth={auth.uid}
-                  src={item.url}
-                  deleteImgHandle={() =>
-                    props.deleteImg(
-                      item.name,
-                      item.url,
-                      albumData.albumName,
-                      props.firebase
-                    )
-                  }
-                />
+                <Fragment key={indx}>
+                  <ImgList
+                    auth={auth.uid}
+                    src={item.url}
+                    deleteImgHandle={() =>
+                      props.deleteImg(
+                        item.name,
+                        item.url,
+                        albumData.albumName,
+                        props.firebase
+                      )
+                    }
+                    viewImgHandle={() => props.viewImg(item.url)}
+                  />
+                  {props.viewImgMode && (
+                    <ModalImg
+                      src={props.chosenImgUrl}
+                      exitViewImgHandle={props.exitViewImg}
+                    />
+                  )}
+                </Fragment>
               );
             })}
           </ul>
@@ -63,12 +72,20 @@ const mapStateToProps = (state, ownProps) => {
   const albumName = ownProps.match.params.albumName;
   const gallery = state.firestore.data.gallery;
   const albumData = gallery ? gallery[albumName] : null;
-  return { albumData: albumData, auth: state.firebase.auth, state };
+  return {
+    albumData: albumData,
+    auth: state.firebase.auth,
+    state,
+    viewImgMode: state.image.viewImgMode,
+    chosenImgUrl: state.image.chosenImgUrl
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
     deleteImg: (imageName, imageUrl, albumName, firebase) =>
-      dispatch(deleteImg(imageName, imageUrl, albumName, firebase))
+      dispatch(deleteImg(imageName, imageUrl, albumName, firebase)),
+    viewImg: imgUrl => dispatch(viewImg(imgUrl)),
+    exitViewImg: () => dispatch(exitViewImg())
   };
 };
 export default compose(

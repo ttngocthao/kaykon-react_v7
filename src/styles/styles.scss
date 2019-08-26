@@ -1,0 +1,92 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito&display=swap);
+@import '_gallery.scss';
+@import '_excur.scss';
+@import '_homeItem.scss';
+@import '_variables.scss';
+@import '_footer.scss';
+@import '_enrollment.scss';
+body {
+  font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
+  line-height: 1.4;
+  
+  
+}
+
+body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  div,
+  p,
+  figure {
+    padding: 0;
+    margin: 0;
+  }
+  .h3-title{
+    font-size: 22px;
+    font-weight: 700;
+   
+  }
+  .text{
+    font-size: 17px; 
+    padding-bottom: 10px;
+    padding-top:10px;
+  }
+  .visit-link{
+    color:white;
+    background-color:$pri-orange;
+    padding:10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    min-width: 80px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 500;
+    // box-shadow: 2px 2px 2px white;
+  }
+  .visit-link:hover{
+    background-color: $light-yellow;
+    color: $pri-green;
+  }
+/*HOME PAGE*/
+.section-wrap{
+  padding:20px;
+}
+.block-wrap {
+  display: flex;
+  flex-direction: column;
+  @media only screen and (min-width: 560px){
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  @media only screen and (min-width: 960px){
+    
+  }
+}
+.block-container{
+  width:100%;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid white;
+  box-shadow: 3px 3px 3px grey;
+  background-color: $pri-green;
+  margin: 1rem auto;
+  max-width: 350px;
+  min-height: 300px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.main-block-conten{
+  max-width: 400px;
+  width:100%;
+  padding:1rem
+  
+}
