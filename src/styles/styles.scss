@@ -1,0 +1,86 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito&display=swap);
+@import '_variables.scss';
+@import '_nav.scss';
+@import '_gallery.scss';
+@import '_excur.scss';
+@import '_homeItem.scss';
+@import '_footer.scss';
+@import '_enrollment.scss';
+@import '_carousel.scss';
+@import '_footer.scss';
+@import '_form.scss';
+@import '_signOutLinks.scss';
+body {
+  font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
+  line-height: 1.4;
+  color:$font-black;
+  
+}
+
+body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  div,
+  p,
+  figure {
+    padding: 0;
+    margin: 0;
+  }
+  h1{
+    font-size: 26px;
+  }
+  .h3-title{
+    font-size: 22px;
+    font-weight: 700;
+   
+  }
+  .text{
+    font-size: 17px; 
+    padding-bottom: 10px;
+    padding-top:10px;
+  }
+  .section-heading {
+    @media only screen and (min-width:768px){
+      font-size: 28px
+     
+    }
+    @media only screen and (min-width:1024px){
+      font-size: 30px;
+      text-align: center;
+    }
+  }
+
+  .large-screen__centered{
+    @media only screen and (min-width:1024px){
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+  .visit-link{
+    color:white;
+    background-color:$pri-orange;
+    padding:10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    min-width: 80px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 500;
+    // box-shadow: 2px 2px 2px white;
+  }
+  .visit-link:hover{
+    background-color: $light-yellow;
+    color: $pri-green;
+  }
+.page-content{
+  padding-top:50px;
+}

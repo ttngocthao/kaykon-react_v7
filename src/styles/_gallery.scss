@@ -1,0 +1,106 @@
+.album-thumbnail {
+  width: 300px;
+  height: 200px;
+  border-radius: 15px;
+  margin: 20px;
+  background-position: bottom;
+  background-size: cover;
+  position: relative;
+  box-shadow: 3px 3px 3px gray;
+}
+.album-thumbnail__content {
+  position: absolute;
+  /* top: 50%; */
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%,0%);
+  padding: 10px 0 0px;
+  /* width: 100%; */
+  /* margin: 0 auto; */
+  background-color: rgba(255,255,255,.5);
+  width: 100%;
+  text-align: center;
+  color: $font-black;
+  border-radius: 0 0 15px 15px;
+}
+.delete-btn__album {
+  position: absolute;
+  font-size: 2rem;
+  color: black;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
+  margin: 0;
+}
+.album__img-list {
+  display: flex;
+  max-width: 1200px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+.album__img-placeholder {
+  list-style: none;
+  position: relative;
+  margin: 10px;
+}
+.album__img {
+  width: 200px;
+  height: 130px;
+}
+.preView-imgUpload-list{
+  display: flex;
+  width: 100%;
+  max-width:1200px;
+  margin:20px auto 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  figure{
+    margin: 20px;
+  }
+ 
+}
+.modal__content-wrap__upload-img{
+  background-size: cover;
+  background-position: bottom;
+  min-height: 150px;
+}
+.form-content{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+}
+#upload-input{
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.upload-input__icon{
+  font-size: 30px;
+  margin-left:20px;
+  margin-top:20px;
+
+}
+.upload-img__btn{
+  background-color:$pri-orange;
+  box-shadow: none;
+  border-radius: 15px;
+  color:white;
+  padding:5px 15px;
+  margin: 20px auto;
+    display: block;
+    min-width: 200px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+.page-link{
+  text-decoration: none;
+  font-size: 20px;
+  color: $font-black;
+}
+.album-list{
+
+}

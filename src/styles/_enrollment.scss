@@ -1,0 +1,30 @@
+.enrollment-container{
+width:100%;
+min-height: 400px;
+background-position: center;
+background-size: cover;
+position: relative;
+@media only screen and (min-width: 600px){
+      min-height: 400px;
+      
+    }
+    @media only screen and (min-width: 900px){
+      min-height: 500px;
+      
+    }
+    @media only screen and (min-width: 1200px){
+      min-height: 600px;
+      background-position: 50% 75%;
+    }
+}
+.enrollment-content{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  width: 100%;
+  text-align: center;
+ 
+    
+  
+}

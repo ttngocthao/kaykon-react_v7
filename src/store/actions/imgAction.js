@@ -17,7 +17,7 @@ export const uploadImg = (album, image, collection, firebase) => {
         photos: []
       });
     });
-
+    //upload file to the store
     const uploadTask = firebase
       .storage()
       .ref(`${album}/${image.name}`)
@@ -34,6 +34,7 @@ export const uploadImg = (album, image, collection, firebase) => {
         console.log("err", err);
       },
       function() {
+        //get the url to add to database
         uploadTask.snapshot.ref
           .getDownloadURL()
           .then(function(downloadURL) {
@@ -59,8 +60,8 @@ export const deleteImg = (imageName, imageUrl, albumName, firebase) => {
   return (dispatch, getState, { getFirestore }) => {
     console.log("imageName,albumName from imgAction", imageName, albumName);
     const firestore = getFirestore();
-
-    // Create a reference to the file in database to delete
+    //
+    // Create a reference to the doc in database to delete
     const imgRef = firestore.collection("gallery").doc(albumName);
     // Create a reference to the file in store to delete
     const fileRef = firebase.storage().ref(`${albumName}/${imageName}`);
@@ -150,28 +151,39 @@ export const deleteAlbum = (albumName, firebase) => {
             .delete();
         });
       });
+  };
+};
 
-    // albumRef
-    //   .delete()
-    //   .then(() => {
-    //     firestore
-    //       .collection("gallery")
-    //       .get()
-    //       .then(querySnapshot => {
-    //         querySnapshot.forEach(doc => {
-    //           console.log(doc.id, " => ", doc.data());
-    //           gallery.push({ albumName: doc.id, photos: doc.data().photos });
-    //           return gallery;
-    //         });
-    //       })
-    //       .then(() => {
-    //         dispatch({ type: "DELETE_ALBUM", gallery });
-    //       }).catch(err => {
-    //         dispatch({ type: "ERROR_DELETE_ALBUM", err });
-    //       });;
-    //   })
-    //   .catch(err => {
-    //     dispatch({ type: "ERROR_DELETE_ALBUM", err });
-    //   });
+export const viewImg = imgUrl => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    //let viewImgMode = getState().image.viewImgMode
+
+    dispatch({ type: "VIEW_IMG", viewImgMode: true, imgUrl });
+  };
+};
+
+export const exitViewImg = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch({ type: "EXIT_VIEW_IMG", viewImgMode: false });
+  };
+};
+
+export const test = (imageUrl, imageName, firebase) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const uploadTask = firebase
+      .storage()
+      .ref(`testBase64/${imageName}`)
+      .putString(imageUrl, "data_url")
+      .then(() => {
+        alert("done");
+      });
+
+    // const firestore = getFirestore();
+    // firestore.collection('testBase64').add({
+    //   url: imageUrl,
+    //   name: 'testing'
+    // }).then(()=>[
+    //   alert('DONE!!!')
+    // ])
   };
 };

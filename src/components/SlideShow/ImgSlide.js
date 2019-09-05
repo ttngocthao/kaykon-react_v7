@@ -5,7 +5,7 @@ const ImgSlide = ({ url }) => {
     backgroundImage: `url(${url})`,
     backgroundSize: "cover",
     minWidth: "200px",
-    minHeight: "300px",
+    width: "100%",
     backgroundPosition: "center",
     transition: "background-image 0.5s ease-in-out"
   };

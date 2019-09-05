@@ -1,31 +1,25 @@
 import React from "react";
-import moment from "moment";
+import DishesDisplay from "./DishesDisplay";
 
 const MenuDisplay = props => {
-  const { item } = props;
+  const { item, auth } = props;
 
   return (
-    <div>
+    <div className="weekly-menu__container">
+      {auth.uid && (
+        <span className="btn__delete-menu" onClick={props.deleteMenuHandle}>
+          &times;
+        </span>
+      )}
+
       <h4>
-        From {moment(item.from).format("DD MMM YYYY")} to{" "}
-        {moment(item.to).format("DD MMM YYYY")}
+        From {item.from} to {item.to}
       </h4>
-
-      <h3>Monday:</h3>
-      <ul>
-        {item.mon &&
-          item.mon.map((dish, index) => {
-            return <li key={index}>{dish}</li>;
-          })}
-      </ul>
-
-      <h3>Tuesday:</h3>
-      <ul>
-        {item.tue &&
-          item.tue.map((dish, index) => {
-            return <li key={index}>{dish}</li>;
-          })}
-      </ul>
+      <DishesDisplay day="Monday" dishes={item.mon} />
+      <DishesDisplay day="Tuesday" dishes={item.tue} />
+      <DishesDisplay day="Wednesday" dishes={item.wed} />
+      <DishesDisplay day="Thursday" dishes={item.thu} />
+      <DishesDisplay day="Friday" dishes={item.fri} />
     </div>
   );
 };

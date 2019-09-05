@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -8,6 +8,8 @@ import { firestoreConnect } from "react-redux-firebase";
 import { deleteAlbum, getAlbums } from "../../store/actions/imgAction";
 import AlbumThumbnail from "./AlbumThumbnail";
 //import Album from "./Album";
+
+import DefaulBgkImg from "../../images/homePage/galleryImg.jpg";
 
 class Gallery extends Component {
   state = {};
@@ -19,21 +21,34 @@ class Gallery extends Component {
   render() {
     const { gallery, auth } = this.props;
     return (
-      <div>
-        <h1>Gallery</h1>
+      <div className="page-content">
+        <div className="section-wrap">
+          <div className="large-screen__centered">
+            <h1 className="section-heading">Thư viện hình</h1>
+            {auth.uid && (
+              <h3>
+                <Link to="/create-album" className="page-link">
+                  Add new album
+                  <i className="fas fa-folder-plus upload-input__icon" />
+                </Link>
+              </h3>
+            )}
+          </div>
+        </div>
+
         {gallery ? (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
-              flexWrap: "wrap"
-            }}
-          >
+          <div className="album__img-list">
             {gallery &&
               Object.keys(gallery).map((alb, indx) => {
+                const thumbnailBkgImg = gallery[alb].photos[0]
+                  ? gallery[alb].photos[0].url
+                  : DefaulBgkImg;
                 return (
-                  <div key={indx} className="album-thumbnail">
+                  <div
+                    key={indx}
+                    className="album-thumbnail"
+                    style={{ backgroundImage: `url(${thumbnailBkgImg})` }}
+                  >
                     {auth.uid && (
                       <p
                         className="delete-btn__album"
@@ -51,7 +66,7 @@ class Gallery extends Component {
                     <Link to={`/gallery/${gallery[alb].albumName}`}>
                       <AlbumThumbnail
                         albumName={gallery[alb].albumName}
-                        imgUrls={gallery[alb].imgUrls}
+                        imgUrls={gallery[alb].photos}
                         length={gallery[alb].photos.length}
                         auth={auth}
                         deleteHandle={() => {
@@ -93,5 +108,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  firestoreConnect()
+  firestoreConnect([{ collection: "gallery" }])
 )(Gallery);

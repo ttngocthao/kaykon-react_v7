@@ -1,14 +1,15 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 const PublicLinks = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/admin">Sign in</Link>
-        </li>
-      </ul>
-    </nav>
+    <Fragment>
+      <li className="menu-item">
+        <Link to="/admin">
+          <i className="fas fa-user-lock  footer-icons" />
+          Sign in as admin
+        </Link>
+      </li>
+    </Fragment>
   );
 };
 

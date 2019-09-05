@@ -7,6 +7,8 @@ import { firebaseConnect } from "react-redux-firebase";
 
 import { signIn } from "../../store/actions/authAction";
 
+import BgImg from "../../images/homePage/excurImg.jpg";
+
 class SignInForm extends Component {
   state = {
     email: "",
@@ -32,26 +34,37 @@ class SignInForm extends Component {
       return <Redirect to="/admin-landing" />;
     }
     return (
-      <form className="form sign-in-form" onSubmit={this.handleSubmit}>
-        <h3>Sign in as Admin</h3>
-        <div className="input-field">
-          <label htmlFor="email">Email</label>
-          <input
-            name="email"
-            type="email"
-            placeholder="Admin email"
-            onChange={this.handleChange}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="password">Password</label>
-          <input name="password" type="password" onChange={this.handleChange} />
-        </div>
-        <div className="input-field">
-          <button className="form-submit-btn">Log in as Admin</button>
-          {auth.authErr && <div>auth.authErr</div>}
-        </div>
-      </form>
+      <section
+        className="form-container page-content form-container__sign-in"
+        style={{ backgroundImage: `url(${BgImg})` }}
+      >
+        <form className="form sign-in-form" onSubmit={this.handleSubmit}>
+          <h3 className="form-heading">Sign in as Admin</h3>
+          <div className="input-field">
+            <label htmlFor="email">Email</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="Admin@email"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="password">Password</label>
+            <input
+              name="password"
+              type="password"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="input-field input-field__btn">
+            <div className="form-submit-btn" onClick={this.handleSubmit}>
+              Log in as Admin
+            </div>
+            {auth.authErr && <div>auth.authErr</div>}
+          </div>
+        </form>
+      </section>
     );
   }
 }

@@ -4,11 +4,19 @@ const ImgList = props => {
   return (
     <li className="album__img-placeholder">
       {props.auth && (
-        <span className="delete-btn" onClick={props.deleteImgHandle}>
-          &times;
-        </span>
+        <p>
+          <span className="delete-btn__white-background" />
+          <span className="delete-btn" onClick={props.deleteImgHandle}>
+            &times;
+          </span>
+        </p>
       )}
-      <img className="album__img" alt="" src={props.src} />
+      <img
+        className="album__img"
+        alt=""
+        src={props.src}
+        onClick={props.viewImgHandle}
+      />
     </li>
   );
 };

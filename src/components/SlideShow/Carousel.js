@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -13,8 +14,7 @@ import EditSlide from "./EditSlide";
 import {
   getSlideShow,
   previousSlide,
-  nextSlide,
-  editSlideShow
+  nextSlide
 } from "../../store/actions/slideShowAction";
 
 class Carousel extends Component {
@@ -53,28 +53,24 @@ class Carousel extends Component {
         <Fragment>
           <h4>No image available</h4>
           {auth.uid && (
-            <p
-              className="btn__edit-slideShow"
-              onClick={this.editingSlideShowHandle}
-            >
+            <Link className="btn__edit-slideShow" to="/editSlide">
+              <i className="fas fa-cogs edit-icon" />
               Edit Slide Show
-            </p>
+            </Link>
           )}
         </Fragment>
       );
     } else if (data && data.length !== 0) {
       slideShowContent = (
         <Fragment>
-          {auth.uid && (
-            <p
-              className="btn__edit-slideShow"
-              onClick={this.editingSlideShowHandle}
-            >
-              Edit Slide Show
-            </p>
-          )}
-
           <div className="carousel-container">
+            {auth.uid && (
+              <Link className="btn__edit-slideShow" to="/editSlide">
+                <i className="fas fa-cogs edit-icon" />
+                Edit Slide Show
+              </Link>
+            )}
+
             <Arrow
               direction="left"
               clickFunction={this.previousSlide}
@@ -101,14 +97,7 @@ class Carousel extends Component {
     }
     return (
       <Fragment>
-        {data ? (
-          <Fragment>
-            {slideShowContent}
-            {editingSlideShow && <EditSlide />}
-          </Fragment>
-        ) : (
-          <h4>Loading...</h4>
-        )}
+        {data ? <Fragment>{slideShowContent}</Fragment> : <h4>Loading...</h4>}
       </Fragment>
     );
   }
@@ -118,7 +107,6 @@ const mapStateToProps = state => {
   return {
     data: state.slideShow.data,
     currentImgIndex: state.slideShow.currentImgIndex,
-    editingSlideShow: state.slideShow.editingSlideShow,
     auth: state.firebase.auth
   };
 };
@@ -126,8 +114,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getSlideShow: () => dispatch(getSlideShow()),
     previousSlide: data => dispatch(previousSlide(data)),
-    nextSlide: data => dispatch(nextSlide(data)),
-    editSlideShow: () => dispatch(editSlideShow())
+    nextSlide: data => dispatch(nextSlide(data))
   };
 };
 export default compose(

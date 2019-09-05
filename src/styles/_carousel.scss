@@ -1,0 +1,58 @@
+.carousel-container {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+  
+}
+.img-slide {
+  min-width: 200px;
+  min-height: 300px;
+  width: 100%;
+  @media only screen and (min-width: 600px){
+    min-height: 400px;
+    
+  }
+  @media only screen and (min-width: 900px){
+    min-height: 500px;
+    
+  }
+  @media only screen and (min-width: 1200px){
+    min-height: 600px;
+    
+  }
+}
+.img-indicator{
+  background-color: $pri-green;
+}
+.slide-arrowleft,
+.slide-arrowright {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color:$pri-green;
+}
+.slide-arrowleft {
+  left: 50px;
+}
+.slide-arrowright {
+  right: 50px;
+}
+.indicator-wrap {
+  margin: 0px auto;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.377);
+}
+.btn__edit-slideShow{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.377);
+  // width: 100%;
+  padding: 5px;
+  color: white;
+}
+.edit-icon{
+  padding-right: 20px;
+}

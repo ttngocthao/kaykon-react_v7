@@ -1,5 +1,5 @@
 {
-  "name": "kaykon-react-v18",
+  "name": "kaykon-react-v32",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -7,18 +7,23 @@
   "dependencies": {
     "firebase": "6.3.0",
     "firebase-admin": "8.2.0",
+    "google-maps-react": "2.0.2",
     "moment": "2.24.0",
     "react": "16.8.6",
     "react-datepicker": "2.8.0",
     "react-dom": "16.8.6",
     "react-firebase-file-uploader": "2.4.2",
+    "react-image-file-resizer": "0.2.0",
+    "react-lorem-ipsum": "1.4.3",
     "react-redux": "7.1.0",
     "react-redux-firebase": "3.0.0-alpha.10",
     "react-router-dom": "5.0.1",
     "react-scripts": "3.0.1",
     "redux": "4.0.4",
     "redux-firestore": "0.8.0",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "scss": "0.2.4",
+    "uid": "0.0.2"
   },
   "devDependencies": {
     "typescript": "3.3.3"

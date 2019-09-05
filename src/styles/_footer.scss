@@ -1,0 +1,38 @@
+.social-media{
+  display: flex;
+  max-width: 300px;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding-top:20px;
+}
+
+.social-media__img{
+  max-width: 62px;
+}
+.footer-banner{
+  max-height: 300px;  
+  width:100%;
+  overflow: hidden;
+}
+.footer-banner__img{
+  width: 100%;
+  max-height: 300px;
+}
+.footer-icons{
+  font-size: 20px;
+  margin-right: 10px;
+
+}
+.footer__infor-list{
+  padding: 20px 10px;
+  background-color: $pri-green;
+  a{
+    text-decoration: none;
+    color:$font-black;
+    cursor: pointer;
+  }
+}
+.footer__infor-item{
+  padding:5px 0;
+ 
+}

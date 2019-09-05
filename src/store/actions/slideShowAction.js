@@ -1,3 +1,4 @@
+import uid from "uid";
 export const getSlideShow = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
@@ -6,12 +7,20 @@ export const getSlideShow = () => {
       .collection("Carousel")
       .get()
       .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          //console.log(doc.id, " => ", doc.data());
-          data.push({ id: doc.id, name: doc.data().name, url: doc.data().url });
-          //console.log('data variable',data)
-          return data;
-        });
+        if (querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            //console.log(doc.id, " => ", doc.data());
+            data.push({
+              id: doc.id,
+              name: doc.data().name,
+              url: doc.data().url
+            });
+            //console.log('data variable',data)
+            return data;
+          });
+        } else {
+          console.log("querySnapshot", querySnapshot);
+        }
       })
       .then(() => {
         dispatch({ type: "GET_CAROUSEL", data });
@@ -45,7 +54,7 @@ export const nextSlide = data => {
 export const editSlideShow = () => {
   return (dispatch, getState) => {
     const editingSlideShow = getState().slideShow.editingSlideShow;
-    console.log("from slideshow action", editingSlideShow);
+    //console.log("from slideshow action", editingSlideShow);
     dispatch({ type: "EDIT_SLIDESHOW", editingSlideShow: !editingSlideShow });
   };
 };
@@ -56,16 +65,24 @@ export const exitEditMode = () => {
   };
 };
 
-export const uploadImg = (image, firebase) => {
+export const uploadImg = (file, firebase) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
+    const imgId = uid();
+    const createdAt = new Date();
+    const metadata = {
+      contentType: "image/jpeg",
+      size: file.size,
+      timeCreated: createdAt.toDateString()
+    };
     const albumRef = firestore.collection("Carousel");
     let data = [];
     let progress;
     const uploadTask = firebase
       .storage()
-      .ref(`Carousel/${image.name}`)
-      .put(image);
+      .ref(`Carousel/${imgId}-${file.name}`)
+      .putString(file.uri, "data_url", metadata);
+
     uploadTask.on(
       "state_changed",
       snapshot => {
@@ -80,8 +97,9 @@ export const uploadImg = (image, firebase) => {
           .getDownloadURL()
           .then(downloadUrl => {
             albumRef.add({
-              name: image.name,
-              url: downloadUrl
+              name: `${imgId}-${file.name}`,
+              url: downloadUrl,
+              createdAt: new Date()
             });
           })
           .then(() => {
@@ -89,16 +107,20 @@ export const uploadImg = (image, firebase) => {
               .collection("Carousel")
               .get()
               .then(querySnapshot => {
-                querySnapshot.forEach(doc => {
-                  //console.log(doc.id, " => ", doc.data());
-                  data.push({
-                    id: doc.id,
-                    name: doc.data().name,
-                    url: doc.data().url
+                if (querySnapshot) {
+                  querySnapshot.forEach(function(doc) {
+                    //console.log(doc.id, " => ", doc.data());
+                    data.push({
+                      id: doc.id,
+                      name: doc.data().name,
+                      url: doc.data().url
+                    });
+                    //console.log('data variable',data)
+                    return data;
                   });
-                  //console.log('data variable',data)
-                  return data;
-                });
+                } else {
+                  console.log("querySnapshot", querySnapshot);
+                }
               });
           })
           .then(() => {
@@ -129,16 +151,20 @@ export const deleteImg = (imageName, docId, firebase) => {
             .collection("Carousel")
             .get()
             .then(querySnapshot => {
-              querySnapshot.forEach(doc => {
-                //console.log(doc.id, " => ", doc.data());
-                data.push({
-                  id: doc.id,
-                  name: doc.data().name,
-                  url: doc.data().url
+              if (querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                  //console.log(doc.id, " => ", doc.data());
+                  data.push({
+                    id: doc.id,
+                    name: doc.data().name,
+                    url: doc.data().url
+                  });
+                  //console.log('data variable',data)
+                  return data;
                 });
-                //console.log('data variable',data)
-                return data;
-              });
+              } else {
+                console.log("querySnapshot", querySnapshot);
+              }
             });
         })
         .then(() => {

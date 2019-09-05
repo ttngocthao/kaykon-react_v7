@@ -1,10 +1,10 @@
 import React from "react";
 const ImgIndicator = props => {
   const style = {
-    width: "15px",
-    height: "15px",
+    width: "10px",
+    height: "10px",
     borderRadius: "50%",
-    backgroundColor: "gray",
+    backgroundColor: "lightgray",
     display: "inline-block",
     margin: "0px 5px"
   };
@@ -16,7 +16,7 @@ const ImgIndicator = props => {
       className="img-indicator"
       style={
         index === currentImgIndex
-          ? { ...style, backgroundColor: "pink" }
+          ? { ...style, backgroundColor: "#BCD322" }
           : style
       }
     />
